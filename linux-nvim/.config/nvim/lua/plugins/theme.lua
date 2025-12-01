@@ -6,8 +6,8 @@ return {
     return {
       transparent = transparent_enabled,
       styles = {
-        sidebars = transparent_enabled and "transparent" or "dark",
-        floats = transparent_enabled and "transparent" or "dark",
+        sidebars = (transparent_enabled and "transparent") or "dark",
+        floats = (transparent_enabled and "transparent") or "dark",
       },
     }
   end,
