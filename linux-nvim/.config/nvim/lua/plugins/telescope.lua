@@ -1,0 +1,20 @@
+return {
+  "nvim-telescope/telescope.nvim",
+  opts = {
+    pickers = {
+      find_files = {
+        hidden = true,
+        no_ignore = true,
+        file_ignore_patterns = {
+          ".venv",
+          "venv",
+          "^vendor/",
+          ".ruff_cache/",
+          ".ropeproject/",
+          "__pycache__/",
+          "node_modules/",
+        },
+      },
+    },
+  },
+}

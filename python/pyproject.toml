@@ -1,0 +1,98 @@
+[tool.ruff]
+select = [
+  "E", # pycodestyle errors
+  "W", # pycodestyle warnings
+  "F", # pyflakes
+  "C", # flake8-comprehensions
+  "B", # flake8-bugbear
+]
+ignore = [
+  "E501", # line too long, обрабатывается black
+  "E402", # module level import not at top of file
+  "B008", # do not perform function calls in argument defaults
+  "C901", # too complex
+]
+exclude = [
+  ".git/",
+  "venv/",
+  ".venv/",
+  "alembic/",
+  "__pycache__",
+  ".mypy_cache/",
+  ".ruff_cache/",
+  ".pytest_cache/",
+  "./app/config/db/metadata.py",
+]
+
+
+[tool.ruff.per-file-ignores]
+"__init__.py" = ["F401", "F403"]
+
+[tool.pyright]
+venvPath = "."
+venv = ".venv"
+
+
+[tool.black]
+line-length = 88
+target-version = ["py310"]
+extend-exclude = """
+    .git/
+    venv/
+    .venv/
+    alembic/
+    __pycache__
+    .mypy_cache/
+    .pytest_cache/
+    .ruff_cache/
+    __init__.py
+"""
+
+
+[tool.isort]
+include_trailing_comma = true
+line_length = 88
+lines_after_imports = 2
+multi_line_output = 3
+skip = [
+  ".git/",
+  "venv/",
+  ".venv/",
+  "alembic/",
+  ".mypy_cache/",
+  ".pytest_cache/",
+  ".ruff_cache/",
+  "__init__.py",
+]
+
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+filterwarnings = [
+  "ignore::sqlalchemy.exc.MovedIn20Warning",
+  "ignore::sqlalchemy.exc.SADeprecationWarning",
+  "ignore::DeprecationWarning",
+  "ignore::fastapi_pagination.utils.FastAPIPaginationWarning:.*:",
+]
+
+[project]
+name = 'monetization'
+version = "0.0.1"
+description = ""
+authors = [{ name = "a.radzhabov", email = "a.radzhabov@estesis.tech" }]
+readme = "README.md"
+requires-python = ">=3.12,<4.0"
+dependencies = [
+  
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+package-mode = false
+
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.11.11"
