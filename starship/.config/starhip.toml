@@ -1,30 +1,22 @@
 "$schema" = 'https://starship.rs/config-schema.json'
 
 format = """
-[](surface0)\
-$os\
-$username\
-[](bg:peach fg:surface0)\
+[░▒▓](#a3aed2)\
+[  ](bg:#a3aed2 fg:#090c0c)\
+[](bg:#769ff0 fg:#a3aed2)\
 $directory\
-[](fg:peach bg:green)\
+[](fg:#769ff0 bg:#394260)\
 $git_branch\
 $git_status\
-[](fg:green bg:teal)\
-$c\
+[](fg:#394260 bg:#212736)\
+$nodejs\
 $rust\
 $golang\
-$nodejs\
 $php\
-$java\
-$kotlin\
-$haskell\
-$python\
-[](fg:teal bg:blue)\
-$docker_context\
-[](fg:blue bg:purple)\
+[](fg:#212736 bg:#1d2230)\
 $time\
-[ ](fg:purple)\
-$line_break$character"""
+[ ](fg:#1d2230)\
+\n$character"""
 
 palette = 'catppuccin_mocha'
 
