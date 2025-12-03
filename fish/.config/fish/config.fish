@@ -64,3 +64,5 @@ function auto_venv --on-variable PWD
         source .venv/bin/activate.fish
     end
 end
+
+starship init fish | source
