@@ -37,7 +37,7 @@ return {
         },
         marksman = { enabled = false, autostart = false },
         basedpyright = {
-          mason = false,
+          mason = true,
           enabled = true,
         },
       },
