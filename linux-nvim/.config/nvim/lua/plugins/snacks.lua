@@ -1,5 +1,14 @@
 return {
   "folke/snacks.nvim",
+  -- keys = {
+  --   {
+  --     "gp",
+  --     function()
+  --       Snacks.picker.lsp_definitions({ auto_confirm = false })
+  --     end,
+  --     desc = "Preview Definition",
+  --   },
+  -- },
   opts = {
     picker = {
       sources = {

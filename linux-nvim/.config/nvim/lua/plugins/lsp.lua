@@ -45,7 +45,11 @@ return {
     keys = {
       {
         "gp",
-        "<cmd>lua require('telescope.builtin').lsp_definitions({ jump_type = 'never' })<CR>",
+        function()
+          require("snacks.picker").lsp_definitions({
+            auto_confirm = false,
+          })
+        end,
         desc = "Preview Definition",
       },
       {
