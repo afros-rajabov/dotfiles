@@ -23,8 +23,8 @@ return {
       require("tokyonight").setup({
         transparent = _G.tokyonight_transparent,
         styles = {
-          sidebars = _G.tokyonight_transparent and "transparent" or "dark",
-          floats = _G.tokyonight_transparent and "transparent" or "dark",
+          sidebars = (_G.tokyonight_transparent and "transparent") or "dark",
+          floats = (_G.tokyonight_transparent and "transparent") or "dark",
         },
       })
 

@@ -5,9 +5,6 @@
 -- For conciseness
 local opts = { noremap = true, silent = true }
 
--- delete single character without copying into register
-vim.keymap.set("n", "x", '"_x', opts)
-
 -- Find and center
 vim.keymap.set("n", "n", "nzzzv", opts)
 vim.keymap.set("n", "N", "Nzzzv", opts)
