@@ -1,24 +1,24 @@
--- return {}
-return {
-  "mistricky/codesnap.nvim",
-  build = "make",
-  event = "VeryLazy",
-  keys = {
-    { "<leader>cn", "<Esc><cmd>CodeSnap<cr>", mode = "x", desc = "Save selected code snapshot into clipboard" },
-    { "<leader>cN", "<Esc><cmd>CodeSnapSave<cr>", mode = "x", desc = "Save selected code snapshot in ~/Pictures/" },
-  },
-  lazy = true,
-  opts = {
-    mac_window_bar = true,
-    save_path = "~/Pictures/",
-    has_breadcrumbs = false,
-    show_workspace = true,
-    bg_theme = "peach",
-    -- bg_color = "#535c68",
-    watermark = "Help me",
-    code_font_family = "Hack Nerd Font",
-    has_line_number = true,
-    bg_x_padding = 100,
-    bg_y_padding = 82,
-  },
-}
+return {}
+-- return {
+--   "mistricky/codesnap.nvim",
+--   build = "make",
+--   event = "VeryLazy",
+--   keys = {
+--     { "<leader>cn", "<Esc><cmd>CodeSnap<cr>", mode = "x", desc = "Save selected code snapshot into clipboard" },
+--     { "<leader>cN", "<Esc><cmd>CodeSnapSave<cr>", mode = "x", desc = "Save selected code snapshot in ~/Pictures/" },
+--   },
+--   lazy = true,
+--   opts = {
+--     mac_window_bar = true,
+--     save_path = "~/Pictures/",
+--     has_breadcrumbs = false,
+--     show_workspace = true,
+--     bg_theme = "peach",
+--     -- bg_color = "#535c68",
+--     watermark = "Help me",
+--     code_font_family = "Hack Nerd Font",
+--     has_line_number = true,
+--     bg_x_padding = 100,
+--     bg_y_padding = 82,
+--   },
+-- }
