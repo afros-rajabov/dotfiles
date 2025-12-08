@@ -3,12 +3,21 @@ return {
   opts = {
     picker = {
       sources = {
+        files = {
+          ignored = true,
+          hidden = true,
+          exclude = {
+            ".git",
+            ".venv",
+            "venv",
+            ".idea",
+            ".ruff_cache",
+            "__pycache__",
+          },
+        },
         explorer = {
           ignored = true,
           hidden = true,
-          include = {
-            -- ".env",
-          },
           exclude = {
             ".git",
             ".idea",
