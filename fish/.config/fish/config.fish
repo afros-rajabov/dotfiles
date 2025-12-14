@@ -40,9 +40,6 @@ if status is-interactive
     abbr -a -- tma 'tmux attach -t '
     abbr -a -- tman 'tmux new -s '
 
-    # SSH
-    abbr -a -- cs50 'sshpass -p Stripes12 ssh a.radzhabov@192.168.100.50'
-    abbr -a -- cschool 'sshpass -p aAN_NH3vDg ssh root@194.164.216.159'
 end
 
 # Created by `pipx` on 2025-02-05 02:27:45
