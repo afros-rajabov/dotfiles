@@ -44,15 +44,15 @@ return {
       },
     },
     keys = {
-      {
-        "gp",
-        function()
-          require("snacks.picker").lsp_definitions({
-            auto_confirm = false,
-          })
-        end,
-        desc = "Preview Definition",
-      },
+      -- {
+      --   "gp",
+      --   function()
+      --     require("snacks.picker").lsp_definitions({
+      --       auto_confirm = false,
+      --     })
+      --   end,
+      --   desc = "Preview Definition",
+      -- },
       {
         "<leader>co",
         "<cmd>lua vim.lsp.buf.code_action({ context = { only = 'source.organizeImports' } })<cr>",

@@ -6,6 +6,7 @@ return {
     vim.notify = require("notify")
   end,
   opts = {
+    enabled = false,
     disable_mouse = false,
     hint = true,
   },
