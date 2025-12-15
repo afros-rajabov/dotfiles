@@ -40,6 +40,9 @@ if status is-interactive
     abbr -a -- tma 'tmux attach -t '
     abbr -a -- tman 'tmux new -s '
 
+    # NeoVim
+    abbr -a -- nv 'nvim .'
+
 end
 
 # Created by `pipx` on 2025-02-05 02:27:45
