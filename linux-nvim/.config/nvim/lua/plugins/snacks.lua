@@ -10,6 +10,11 @@ return {
     },
   },
   opts = {
+    terminal = {
+      win = {
+        position = "float",
+      },
+    },
     picker = {
       sources = {
         files = {
