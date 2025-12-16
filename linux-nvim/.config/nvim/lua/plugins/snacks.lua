@@ -8,8 +8,33 @@ return {
       end,
       desc = "Preview Definition",
     },
+    {
+      "<leader>zd",
+      function()
+        local noice = require("noice")
+        noice.disable()
+        local snacks = require("snacks")
+        snacks.config.zen.toggles.dim = not snacks.config.zen.toggles.dim
+        snacks.toggle.zen():toggle()
+        snacks.toggle.zen():toggle()
+        noice.enable()
+      end,
+      desc = "Toggle Zen Dim",
+    },
   },
   opts = {
+    zen = {
+      toggles = {
+        dim = true,
+      },
+      show = {
+        statusline = true, -- can only be shown when using the global statusline
+      },
+      win = {
+        minimal = false,
+        backdrop = { transparent = false },
+      },
+    },
     terminal = {
       win = {
         position = "float",
