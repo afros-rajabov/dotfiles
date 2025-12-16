@@ -65,4 +65,6 @@ function auto_venv --on-variable PWD
     end
 end
 
+alias tm="new_tmux"
+
 starship init fish | source
