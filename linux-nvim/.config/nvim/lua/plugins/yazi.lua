@@ -11,13 +11,13 @@ return {
       "<leader>i",
       mode = { "n", "v" },
       "<cmd>Yazi<cr>",
-      desc = "Open yazi at the current file",
+      desc = "Yazi here",
     },
     {
       -- Open in the current working directory
-      "<leader>cw",
+      "<leader>I",
       "<cmd>Yazi cwd<cr>",
-      desc = "Open the file manager in nvim's working directory",
+      desc = "Yazi in CWD",
     },
     {
       "<c-up>",
