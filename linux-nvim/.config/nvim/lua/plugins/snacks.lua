@@ -25,7 +25,7 @@ return {
   opts = {
     zen = {
       toggles = {
-        dim = true,
+        dim = false,
       },
       show = {
         statusline = true, -- can only be shown when using the global statusline
