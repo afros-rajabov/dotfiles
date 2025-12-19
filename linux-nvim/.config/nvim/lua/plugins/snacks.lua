@@ -23,6 +23,9 @@ return {
     },
   },
   opts = {
+    explorer = {
+      enabled = false,
+    },
     zen = {
       toggles = {
         dim = false,
@@ -55,6 +58,7 @@ return {
           },
         },
         explorer = {
+          enabled = false,
           ignored = true,
           hidden = true,
           exclude = {
