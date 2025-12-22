@@ -67,5 +67,6 @@ end
 
 alias tm="new_tmux"
 alias tml="tmux attach"
+alias ef="yazi"
 
 starship init fish | source
