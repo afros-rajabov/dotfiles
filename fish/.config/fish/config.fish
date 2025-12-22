@@ -66,5 +66,6 @@ function auto_venv --on-variable PWD
 end
 
 alias tm="new_tmux"
+alias tml="tmux attach"
 
 starship init fish | source
