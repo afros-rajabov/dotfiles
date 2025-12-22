@@ -41,7 +41,7 @@ if status is-interactive
     abbr -a -- tman 'tmux new -s '
 
     # NeoVim
-    abbr -a -- nv 'nvim .'
+    abbr -a -- nv nvim
 
 end
 
