@@ -79,6 +79,12 @@ return {
           mason = true,
           enabled = true,
         },
+
+        -- RUST
+        bacon_ls = {
+          enabled = true,
+        },
+        rust_analyzer = { enabled = false },
       },
       setup = {
         gopls = function(_, opts)
