@@ -85,6 +85,11 @@ return {
           enabled = true,
         },
         rust_analyzer = { enabled = false },
+
+        -- SQL
+        sqlc = {
+          enabled = true,
+        },
       },
       setup = {
         gopls = function(_, opts)
