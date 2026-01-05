@@ -9,7 +9,7 @@
 
 -- Disable autoformat for python files
 vim.api.nvim_create_autocmd({ "FileType" }, {
-  pattern = { "python" },
+  pattern = { "python", "lua" },
   callback = function()
     vim.b.autoformat = false
   end,

@@ -6,9 +6,9 @@ $os\
 $username\
 [](bg:peach fg:surface0)\
 $directory\
-[](fg:peach bg:green)\
+[](fg:peach bg:teal)\
 $git_branch\
-[](fg:green bg:teal)\
+[](fg:teal bg:green)\
 $c\
 $rust\
 $golang\
@@ -18,12 +18,12 @@ $java\
 $kotlin\
 $haskell\
 $python\
-[](fg:teal bg:blue)\
+[](fg:green bg:blue)\
 $docker_context\
 [](fg:blue)\
 $line_break$character"""
 
-palette = 'catppuccin_mocha'
+palette = 'kanagawa'
 
 [palettes.gruvbox_dark]
 color_fg0 = '#fbf1c7'
@@ -53,6 +53,34 @@ sapphire = "#74c7ec"
 blue = "#89b4fa"
 lavender = "#b4befe"
 text = "#cdd6f4"
+subtext1 = "#bac2de"
+subtext0 = "#a6adc8"
+overlay2 = "#9399b2"
+overlay1 = "#7f849c"
+overlay0 = "#6c7086"
+surface2 = "#585b70"
+surface1 = "#45475a"
+surface0 = "#313244"
+base = "#1e1e2e"
+mantle = "#181825"
+crust = "#11111b"
+
+[palettes.kanagawa]
+rosewater = "#f5e0dc"
+flamingo = "#f2cdcd"
+pink = "#D27E99"
+orange = "#cba6f7"
+red = "#f38ba8"
+maroon = "#eba0ac"
+peach = "#DCA561"
+yellow = "#f9e2af"
+green = "#98BB6C"
+teal = "#A3D4D5"
+sky = "#89dceb"
+sapphire = "#74c7ec"
+blue = "#7FB4CA"
+lavender = "#b4befe"
+text = "#DCD7BA"
 subtext1 = "#bac2de"
 subtext0 = "#a6adc8"
 overlay2 = "#9399b2"
@@ -111,58 +139,58 @@ truncation_symbol = "…/"
 
 [git_branch]
 symbol = ""
-style = "bg:teal"
-format = '[[ $symbol $branch ](fg:base bg:green)]($style)'
+style = "bg:green"
+format = '[[ $symbol $branch ](fg:base bg:teal)]($style)'
 
 [git_status]
-style = "bg:teal"
+style = "bg:green"
 format = '[[($all_status$ahead_behind )](fg:base bg:green)]($style)'
 
 [nodejs]
 symbol = ""
-style = "bg:teal"
+style = "bg:green"
 format = '[[ $symbol( $version) ](fg:base bg:teal)]($style)'
 
 [c]
 symbol = " "
-style = "bg:teal"
+style = "bg:green"
 format = '[[ $symbol( $version) ](fg:base bg:teal)]($style)'
 
 [rust]
 symbol = ""
-style = "bg:teal"
+style = "bg:green"
 format = '[[ $symbol( $version) ](fg:base bg:teal)]($style)'
 
 [golang]
 symbol = ""
-style = "bg:teal"
+style = "bg:green"
 format = '[[ $symbol( $version) ](fg:base bg:teal)]($style)'
 
 [php]
 symbol = ""
-style = "bg:teal"
+style = "bg:green"
 format = '[[ $symbol( $version) ](fg:base bg:teal)]($style)'
 
 [java]
 symbol = " "
-style = "bg:teal"
+style = "bg:green"
 format = '[[ $symbol( $version) ](fg:base bg:teal)]($style)'
 
 [kotlin]
 symbol = ""
-style = "bg:teal"
+style = "bg:green"
 format = '[[ $symbol( $version) ](fg:base bg:teal)]($style)'
 
 [haskell]
 symbol = ""
-style = "bg:teal"
+style = "bg:green"
 format = '[[ $symbol( $version) ](fg:base bg:teal)]($style)'
 
 [python]
 symbol = ""
-style = "bg:teal"
+style = "bg:green"
 # format = '[[ $symbol $version ](fg:base bg:teal)]($style)[](fg:teal bg:pink)[$virtualenv](fg:base bg:pink)[](fg:pink)'
-format = '[[ $symbol $version](fg:base bg:teal)[\($virtualenv\)](fg:base bg:teal) ]($style)'
+format = '[[ $symbol $version](fg:base bg:green)[\($virtualenv\)](fg:base bg:green) ]($style)'
 # format = '[[ $symbol $version ](fg:base bg:teal)]($style)[](fg:teal)[](fg:teal bg:blue)[$virtualenv](fg:base bg:blue)[](fg:teal bg:blue)'
 
 [docker_context]

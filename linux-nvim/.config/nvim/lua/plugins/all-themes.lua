@@ -25,6 +25,9 @@ return {
     "catppuccin/nvim",
     name = "catppuccin",
     lazy = true,
+    opts = {
+      flavour = "macchiato"
+    },
     priority = 1000,
   },
   {
@@ -43,7 +46,7 @@ return {
     priority = 1000,
   },
   {
-    "rebelot/kanagawa.nvim",
+    "afros-rajabov/kanagawa.nvim",
     lazy = true,
     priority = 1000,
   },
@@ -66,11 +69,51 @@ return {
     "rose-pine/neovim",
     name = "rose-pine",
     lazy = true,
+    opts = {
+      variant= "main",
+      styles = { italic = false }
+    },
     priority = 1000,
   },
   {
     "folke/tokyonight.nvim",
     lazy = true,
+    opts = { style = "night" },
     priority = 1000,
   },
+  {
+    'datsfilipe/vesper.nvim',
+    lazy = true,
+    opts = {
+      transparent = true,
+      italics = {
+        comments = true,
+        keywords = false,
+        functions = false,
+        strings = false,
+        variables = false,
+      },
+    },
+    priority = 10000
+  },
+  -- {
+  --   "olimorris/onedarkpro.nvim",
+  --   lazy = true,
+  --   priority = 1000,
+  -- },
+  -- {
+  --   "kuri-sun/yoda.nvim",
+  --   lazy = true,
+  --   priority = 1000,
+  -- },
+  -- {
+  --   "rafamadriz/neon",
+  --   lazy = true,
+  --   priority = 1000,
+  -- },
+  -- {
+  --   "uhs-robert/oasis.nvim",
+  --   lazy = true,
+  --   priority = 1000,
+  -- }
 }
