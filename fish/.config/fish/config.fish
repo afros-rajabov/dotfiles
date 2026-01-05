@@ -68,5 +68,6 @@ end
 alias tm="new_tmux"
 alias tml="tmux attach"
 alias ef="yazi"
+alias c='opencode'
 
 starship init fish | source
