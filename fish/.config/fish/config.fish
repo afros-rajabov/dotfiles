@@ -70,4 +70,6 @@ alias tml="tmux attach"
 alias ef="yazi"
 alias c='opencode'
 
+export FZF_DEFAULT_OPTS="--layout=reverse"
+
 starship init fish | source
