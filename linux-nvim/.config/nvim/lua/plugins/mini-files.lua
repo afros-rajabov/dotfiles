@@ -1,5 +1,21 @@
 return {
   "nvim-mini/mini.files",
+  keys = {
+    {
+      "<leader>i",
+      function()
+        require("mini.files").open(vim.api.nvim_buf_get_name(0), true)
+      end,
+      desc = "Open mini.files (Directory of Current File)",
+    },
+    {
+      "<leader>I",
+      function()
+        require("mini.files").open(vim.uv.cwd(), true)
+      end,
+      desc = "Open mini.files (cwd)",
+    },
+  },
   opts = {
     windows = {
       max_number = 3,
