@@ -134,11 +134,11 @@ vim.api.nvim_create_autocmd(events, {
     if true then
       return
     end
-    noice = require("noice")
+    local noice = require("noice")
     noice.cmd("dismiss")
 
-    cur_single_buffer = has_only_one_file_visible()
-    noice.notify(vim.g.single_buffer)
+    local cur_single_buffer = has_only_one_file_visible()
+    noice.notify(vim.g.single_buffer, 1)
 
     if cur_single_buffer ~= vim.g.single_buffered then
       vim.g.single_buffer = cur_single_buffer
