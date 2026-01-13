@@ -12,8 +12,10 @@ vim.keymap.set("n", "N", "Nzzzv", opts)
 -- Toggle line wrapping
 vim.keymap.set("n", "<leader>;w", "<cmd>set wrap!<CR>", opts)
 
--- delete single character without copying into register
-vim.keymap.set("n", "x", '"_x', opts)
-
 -- Keep last yanked when pasting
 vim.keymap.set("v", "p", '"_dP', opts)
+
+vim.keymap.set("n", "x", '"_x', opts)
+vim.keymap.set("n", "X", '"_X', opts)
+vim.keymap.set("n", "d", '"_d', opts)
+vim.keymap.set("v", "d", '"_d', opts)
