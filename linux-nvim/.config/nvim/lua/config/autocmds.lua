@@ -22,6 +22,8 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
+-- NOTE: Center layout for mini-files
+
 -- Window width based on the offset from the center, i.e. center window
 -- is 60, then next over is 20, then the rest are 10.
 -- Can use more resolution if you want like { 60, 20, 20, 10, 5 }
@@ -61,3 +63,39 @@ local ensure_center_layout = function(ev)
 end
 
 vim.api.nvim_create_autocmd("User", {pattern = "MiniFilesWindowUpdate", callback=ensure_center_layout})
+
+-- NOTE: Center single buffer
+
+-- Our custom wrapper that adds padding
+function _G.padded_statuscolumn()
+    local full_screen = vim.o.columns
+    local winwidth = vim.api.nvim_win_get_width(0)
+    local winid = vim.api.nvim_get_current_win()
+
+    -- Get the result from original function
+    local ok, lazyvim_util = pcall(require, "lazyvim.util")
+    original_column = ok and lazyvim_util.statuscolumn or function() return "%l" end
+    local result = original_column()
+
+    if full_screen >= 100 and winwidth > (full_screen / 2) then
+        local padding_width = math.floor((full_screen - 100) / 2)
+        -- We need to return a format string that includes padding
+        -- The %( and %) create a group, %= pushes to right
+        return string.format("%%%d(%%=%s%%)", padding_width, result:gsub("%%!", ""))
+    end
+
+    return result
+end
+
+
+-- Update on window events
+local events = {
+    'BufEnter', 'BufWinEnter', 'BufWinLeave', 'WinEnter', 'WinLeave',
+    'WinResized', 'VimResized'
+}
+
+vim.api.nvim_create_autocmd(events, {
+    callback = function()
+        vim.o.statuscolumn = [[%!v:lua.padded_statuscolumn()]]
+    end,
+})
