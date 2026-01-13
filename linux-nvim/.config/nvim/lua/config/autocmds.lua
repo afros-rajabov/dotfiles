@@ -71,7 +71,28 @@ end
 vim.api.nvim_create_autocmd("User", { pattern = "MiniFilesWindowUpdate", callback = ensure_center_layout })
 
 -- NOTE: Center single buffer
+local function has_only_one_file_visible()
+  local wins = vim.api.nvim_tabpage_list_wins(0)
+  local buff_id = nil
+  local count = 0
 
+  for _, win in ipairs(wins) do
+    local buf = vim.api.nvim_win_get_buf(win)
+    local buftype = vim.api.nvim_buf_get_option(buf, "buftype")
+
+    -- Only count normal file buffers
+    if buftype == "" then
+      buff_id = buf
+      count = count + 1
+    end
+  end
+
+  if count == 1 then
+    return buff_id
+  end
+
+  return nil
+end
 -- Our custom wrapper that adds padding
 function _G.padded_statuscolumn()
   local full_screen = vim.o.columns
@@ -85,7 +106,7 @@ function _G.padded_statuscolumn()
   end
   local result = original_column()
 
-  if full_screen >= 100 and winwidth > (full_screen / 2) then
+  if has_only_one_file_visible() and full_screen >= 100 and winwidth > (full_screen / 2) then
     local padding_width = math.floor((full_screen - 100) / 2)
     -- We need to return a format string that includes padding
     -- The %( and %) create a group, %= pushes to right
@@ -106,8 +127,22 @@ local events = {
   "VimResized",
 }
 
+
+vim.g.single_buffer = nil
 vim.api.nvim_create_autocmd(events, {
   callback = function()
-    vim.o.statuscolumn = [[%!v:lua.padded_statuscolumn()]]
+    if true then
+      return
+    end
+    noice = require("noice")
+    noice.cmd("dismiss")
+
+    cur_single_buffer = has_only_one_file_visible()
+    noice.notify(vim.g.single_buffer)
+
+    if cur_single_buffer ~= vim.g.single_buffered then
+      vim.g.single_buffer = cur_single_buffer
+      vim.o.statuscolumn = [[%!v:lua.padded_statuscolumn()]]
+    end
   end,
 })
