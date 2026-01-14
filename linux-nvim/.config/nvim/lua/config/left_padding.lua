@@ -10,8 +10,12 @@ local config = {
   enabled = true,
 }
 
--- Track which windows we've modified, so we can undo cleanly
-local padded_wins = {}
+local function padding_statuscolumn()
+  local padding_spaces = string.rep(" ", config.width)
+  -- Format: <padding>%s%=%l
+  -- %s = sign column, %= = right align, %l = line number
+  return padding_spaces .. "%s%=%l "
+end
 
 local function is_floating_window(win_id)
   local ok, win_config = pcall(vim.api.nvim_win_get_config, win_id)
@@ -84,55 +88,65 @@ local function should_show_padding()
   if not config.enabled then
     return false
   end
-  if not is_single_normal_window() then
-    return false
-  end
   if has_non_floating_panels() then
     return false
   end
 
-  return is_normal_file(vim.api.nvim_get_current_buf())
+  local wins = get_normal_windows()
+  if #wins ~= 1 then
+    return false
+  end
+
+  -- Important: base the decision on the *editing* window's buffer, not the
+  -- current buffer (which could be a floating picker/mini.files).
+  local buf = vim.api.nvim_win_get_buf(wins[1])
+  return is_normal_file(buf)
 end
 
 local function apply_padding(win_id)
-  if not vim.api.nvim_win_is_valid(win_id) or padded_wins[win_id] then
+  if not vim.api.nvim_win_is_valid(win_id) or vim.w[win_id].left_padding_applied then
     return
   end
 
-  local padding_spaces = string.rep(" ", config.width)
-  -- Format: <padding>%s%=%l
-  -- %s = sign column, %= = right align, %l = line number
-  local statuscolumn = padding_spaces .. "%s%=%l "
+  -- Store prior window-local statuscolumn so we can restore it later.
+  local prev = vim.api.nvim_get_option_value("statuscolumn", { scope = "local", win = win_id })
+  vim.w[win_id].left_padding_prev_statuscolumn = prev
+  vim.w[win_id].left_padding_applied = true
 
-  vim.api.nvim_set_option_value("statuscolumn", statuscolumn, { scope = "local", win = win_id })
-  padded_wins[win_id] = true
+  vim.api.nvim_set_option_value("statuscolumn", padding_statuscolumn(), { scope = "local", win = win_id })
 end
 
 local function clear_padding(win_id)
-  if not vim.api.nvim_win_is_valid(win_id) or not padded_wins[win_id] then
+  if not vim.api.nvim_win_is_valid(win_id) then
     return
   end
 
-  -- Empty resets to default/global
-  vim.api.nvim_set_option_value("statuscolumn", "", { scope = "local", win = win_id })
-  padded_wins[win_id] = nil
+  if vim.w[win_id].left_padding_applied then
+    local prev = vim.w[win_id].left_padding_prev_statuscolumn
+    -- Restore previous value (empty string restores global/default)
+    vim.api.nvim_set_option_value("statuscolumn", prev or "", { scope = "local", win = win_id })
+    vim.w[win_id].left_padding_prev_statuscolumn = nil
+    vim.w[win_id].left_padding_applied = nil
+    return
+  end
+
+  -- If a split was created while padding was active, the new window can inherit
+  -- our padded statuscolumn without having our window-vars. Detect and clear it.
+  local current = vim.api.nvim_get_option_value("statuscolumn", { scope = "local", win = win_id })
+  if current == padding_statuscolumn() then
+    vim.api.nvim_set_option_value("statuscolumn", "", { scope = "local", win = win_id })
+  end
 end
 
 local function update()
-  -- cleanup invalid windows
-  for win_id, _ in pairs(padded_wins) do
-    if not vim.api.nvim_win_is_valid(win_id) then
-      padded_wins[win_id] = nil
-    end
-  end
-
   if should_show_padding() then
     local wins = get_normal_windows()
     if #wins == 1 then
       apply_padding(wins[1])
     end
   else
-    for win_id, _ in pairs(padded_wins) do
+    -- Clear from *all* normal windows, not just ones we tracked.
+    for _, win_id in ipairs(get_normal_windows()) do
       clear_padding(win_id)
     end
   end
