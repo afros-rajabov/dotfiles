@@ -35,7 +35,7 @@ return {
       },
       win = {
         minimal = false,
-        backdrop = { transparent = false },
+        backdrop = { transparent = false, blend = 99 },
       },
     },
     terminal = {

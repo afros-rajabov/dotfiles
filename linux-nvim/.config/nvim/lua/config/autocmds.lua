@@ -74,20 +74,32 @@ vim.api.nvim_create_autocmd("User", { pattern = "MiniFilesWindowUpdate", callbac
 local function has_only_one_file_visible()
   local wins = vim.api.nvim_tabpage_list_wins(0)
   local buff_id = nil
-  local count = 0
+  local file_buffer_count = 0
+  local non_floating_count = 0
 
   for _, win in ipairs(wins) do
-    local buf = vim.api.nvim_win_get_buf(win)
-    local buftype = vim.api.nvim_buf_get_option(buf, "buftype")
+    -- Check if window is floating (floating windows have non-empty relative)
+    local win_config = vim.api.nvim_win_get_config(win)
+    local is_floating = win_config.relative ~= ""
 
-    -- Only count normal file buffers
-    if buftype == "" then
-      buff_id = buf
-      count = count + 1
+    -- Skip floating windows
+    if not is_floating then
+      non_floating_count = non_floating_count + 1
+
+      local buf = vim.api.nvim_win_get_buf(win)
+      local buftype = vim.api.nvim_buf_get_option(buf, "buftype")
+
+      -- Only count normal file buffers
+      if buftype == "" then
+        buff_id = buf
+        file_buffer_count = file_buffer_count + 1
+      end
     end
   end
 
-  if count == 1 then
+  -- Only center if there's exactly one file buffer AND exactly one non-floating window total
+  -- This ensures panels (which are non-floating) prevent centering
+  if file_buffer_count == 1 and non_floating_count == 1 then
     return buff_id
   end
 
@@ -101,7 +113,7 @@ function _G.padded_statuscolumn()
 
   -- Get the result from original function
   local ok, lazyvim_util = pcall(require, "lazyvim.util")
-  original_column = ok and lazyvim_util.statuscolumn or function()
+  local original_column = ok and lazyvim_util.statuscolumn or function()
     return "%l"
   end
   local result = original_column()
@@ -128,21 +140,8 @@ local events = {
 }
 
 
-vim.g.single_buffer = nil
 vim.api.nvim_create_autocmd(events, {
   callback = function()
-    if true then
-      return
-    end
-    local noice = require("noice")
-    noice.cmd("dismiss")
-
-    local cur_single_buffer = has_only_one_file_visible()
-    noice.notify(vim.g.single_buffer, 1)
-
-    if cur_single_buffer ~= vim.g.single_buffered then
-      vim.g.single_buffer = cur_single_buffer
-      vim.o.statuscolumn = [[%!v:lua.padded_statuscolumn()]]
-    end
+    vim.o.statuscolumn = [[%!v:lua.padded_statuscolumn()]]
   end,
 })
