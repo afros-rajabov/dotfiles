@@ -164,39 +164,85 @@ function M.setup(opts)
 
   local augroup = vim.api.nvim_create_augroup("LeftPadding", { clear = true })
   local update_timer = nil
+  local intended_state = nil -- nil = unknown, true = should show, false = should hide
 
-  local function schedule_update()
+  local function schedule_update_with_delay(delay_ms, skip_state_check)
+    local new_state = should_show_padding()
+
+    -- If state hasn't changed and not forcing update, don't update (prevents redundant updates)
+    if not skip_state_check and intended_state == new_state then
+      return
+    end
+
+    intended_state = new_state
+
     if update_timer then
       update_timer:stop()
     end
-    update_timer = vim.defer_fn(update, 50) -- 50ms debounce
+    update_timer = vim.defer_fn(function()
+      update()
+      intended_state = should_show_padding() -- Update state after actual update
+      update_timer = nil
+    end, delay_ms)
   end
 
+  -- Immediate updates for file/window switching (no flicker)
+  local function schedule_immediate()
+    schedule_update_with_delay(5, false) -- 5ms for immediate feel
+  end
+
+  -- Debounced updates for panel toggling (prevents flicker from rapid changes)
+  local function schedule_debounced()
+    schedule_update_with_delay(100, false) -- 100ms debounce, with state check
+  end
+
+  -- Window changes (panels opening/closing) - debounced with state tracking
   vim.api.nvim_create_autocmd({ "WinNew", "WinClosed" }, {
     group = augroup,
-    callback = schedule_update,
+    callback = schedule_debounced,
     desc = "LeftPadding: window changes",
   })
 
-  vim.api.nvim_create_autocmd({ "BufEnter", "BufLeave" }, {
+  -- Buffer changes (file switching) - apply IMMEDIATELY, no delay
+  vim.api.nvim_create_autocmd("BufEnter", {
     group = augroup,
-    callback = schedule_update,
-    desc = "LeftPadding: buffer changes",
+    callback = function()
+      -- Apply immediately, no defer - prevents flicker
+      update()
+      intended_state = should_show_padding()
+    end,
+    desc = "LeftPadding: buffer enter",
   })
 
+  -- Buffer leave - can skip or use short delay
+  vim.api.nvim_create_autocmd("BufLeave", {
+    group = augroup,
+    callback = function()
+      -- Only update if this might affect padding state
+      schedule_update_with_delay(10, false)
+    end,
+    desc = "LeftPadding: buffer leave",
+  })
+
+  -- Window focus changes - immediate
   vim.api.nvim_create_autocmd("WinEnter", {
     group = augroup,
-    callback = schedule_update,
+    callback = schedule_immediate,
     desc = "LeftPadding: focus changes",
   })
 
+  -- Resize - immediate
   vim.api.nvim_create_autocmd("VimResized", {
     group = augroup,
-    callback = schedule_update,
+    callback = schedule_immediate,
     desc = "LeftPadding: resize",
   })
 
-  vim.defer_fn(update, 100)
+  -- Initial update
+  vim.defer_fn(function()
+    update()
+    intended_state = should_show_padding()
+  end, 100)
 end
 
 return M
