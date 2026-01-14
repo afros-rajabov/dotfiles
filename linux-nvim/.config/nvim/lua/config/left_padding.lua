@@ -36,10 +36,40 @@ local function is_quickfix_window(win_id)
   return vim.api.nvim_buf_get_option(buf_id, "buftype") == "quickfix"
 end
 
+local function is_preview_window(win_id)
+  if not vim.api.nvim_win_is_valid(win_id) then
+    return false
+  end
+
+  -- Check if it's already a floating window (should be excluded already)
+  if is_floating_window(win_id) then
+    return false -- Already handled
+  end
+
+  local buf_id = vim.api.nvim_win_get_buf(win_id)
+  if not vim.api.nvim_buf_is_valid(buf_id) then
+    return false
+  end
+
+  -- Check buffer name for preview patterns
+  local buf_name = vim.api.nvim_buf_get_name(buf_id)
+  if buf_name:match("preview") or buf_name:match("snacks.*preview") then
+    return true
+  end
+
+  -- Check window-local variables that snacks might set
+  local win_vars = vim.w[win_id]
+  if win_vars and (win_vars.snacks_preview or win_vars.preview_window) then
+    return true
+  end
+
+  return false
+end
+
 local function get_normal_windows()
   local wins = {}
   for _, win in ipairs(vim.api.nvim_list_wins()) do
-    if not is_floating_window(win) and not is_quickfix_window(win) then
+    if not is_floating_window(win) and not is_quickfix_window(win) and not is_preview_window(win) then
       table.insert(wins, win)
     end
   end
@@ -115,7 +145,7 @@ local function should_show_padding()
 end
 
 local function apply_padding(win_id)
-  if not vim.api.nvim_win_is_valid(win_id) then
+  if not vim.api.nvim_win_is_valid(win_id) or is_preview_window(win_id) then
     return
   end
 
