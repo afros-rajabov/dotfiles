@@ -72,7 +72,7 @@ vim.api.nvim_create_autocmd("User", { pattern = "MiniFilesWindowUpdate", callbac
 
 -- Left padding / centering when only one normal window is open.
 -- (Uses statuscolumn so no extra windows are created.)
-require("config.left_padding").setup({
-  width = 40,
-  enabled = true,
-})
+-- require("config.left_padding").setup({
+--   width = 40,
+--   enabled = true,
+-- })
