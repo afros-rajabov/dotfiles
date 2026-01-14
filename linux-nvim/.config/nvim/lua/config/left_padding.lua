@@ -25,10 +25,21 @@ local function is_floating_window(win_id)
   return win_config.relative ~= ""
 end
 
+local function is_quickfix_window(win_id)
+  if not vim.api.nvim_win_is_valid(win_id) then
+    return false
+  end
+  local buf_id = vim.api.nvim_win_get_buf(win_id)
+  if not vim.api.nvim_buf_is_valid(buf_id) then
+    return false
+  end
+  return vim.api.nvim_buf_get_option(buf_id, "buftype") == "quickfix"
+end
+
 local function get_normal_windows()
   local wins = {}
   for _, win in ipairs(vim.api.nvim_list_wins()) do
-    if not is_floating_window(win) then
+    if not is_floating_window(win) and not is_quickfix_window(win) then
       table.insert(wins, win)
     end
   end
@@ -196,11 +207,21 @@ function M.setup(opts)
     schedule_update_with_delay(100, false) -- 100ms debounce, with state check
   end
 
-  -- Window changes (panels opening/closing) - debounced with state tracking
-  vim.api.nvim_create_autocmd({ "WinNew", "WinClosed" }, {
+  -- Window closed - force update to restore centering when panels close
+  vim.api.nvim_create_autocmd("WinClosed", {
+    group = augroup,
+    callback = function()
+      -- Force update (skip state check) to ensure centering restores
+      schedule_update_with_delay(50, true)
+    end,
+    desc = "LeftPadding: window closed",
+  })
+
+  -- Window new - debounced with state tracking
+  vim.api.nvim_create_autocmd("WinNew", {
     group = augroup,
     callback = schedule_debounced,
-    desc = "LeftPadding: window changes",
+    desc = "LeftPadding: window new",
   })
 
   -- Buffer changes (file switching) - apply IMMEDIATELY, no delay
