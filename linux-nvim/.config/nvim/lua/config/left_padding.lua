@@ -104,13 +104,20 @@ local function should_show_padding()
 end
 
 local function apply_padding(win_id)
-  if not vim.api.nvim_win_is_valid(win_id) or vim.w[win_id].left_padding_applied then
+  if not vim.api.nvim_win_is_valid(win_id) then
     return
   end
 
-  -- Store prior window-local statuscolumn so we can restore it later.
-  local prev = vim.api.nvim_get_option_value("statuscolumn", { scope = "local", win = win_id })
-  vim.w[win_id].left_padding_prev_statuscolumn = prev
+  -- Check if already applied AND verify it's still actually applied
+  local current = vim.api.nvim_get_option_value("statuscolumn", { scope = "local", win = win_id })
+  if vim.w[win_id].left_padding_applied and current == padding_statuscolumn() then
+    return -- Already correctly applied
+  end
+
+  -- Store prior value (only if not already stored)
+  if not vim.w[win_id].left_padding_applied then
+    vim.w[win_id].left_padding_prev_statuscolumn = current
+  end
   vim.w[win_id].left_padding_applied = true
 
   vim.api.nvim_set_option_value("statuscolumn", padding_statuscolumn(), { scope = "local", win = win_id })
@@ -156,8 +163,13 @@ function M.setup(opts)
   config = vim.tbl_deep_extend("force", config, opts or {})
 
   local augroup = vim.api.nvim_create_augroup("LeftPadding", { clear = true })
+  local update_timer = nil
+
   local function schedule_update()
-    vim.defer_fn(update, 10)
+    if update_timer then
+      update_timer:stop()
+    end
+    update_timer = vim.defer_fn(update, 50) -- 50ms debounce
   end
 
   vim.api.nvim_create_autocmd({ "WinNew", "WinClosed" }, {
