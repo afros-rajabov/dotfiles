@@ -7,7 +7,21 @@ if status is-interactive
     #GIT
     abbr -a -- gs 'git status'
     abbr -a -- ga 'git add .'
+
+    #commits
     abbr -a -- gc 'git commit -m'
+    abbr -a -- gcf "git commit -m 'feat"
+    abbr -a -- gcx "git commit -m 'fix"
+    abbr -a -- gcd "git commit -m 'docs"
+    abbr -a -- gcs "git commit -m 'style"
+    abbr -a -- gcr "git commit -m 'refactor"
+    abbr -a -- gcp "git commit -m 'perf"
+    abbr -a -- gct "git commit -m 'test"
+    abbr -a -- gcb "git commit -m 'build"
+    abbr -a -- gcc "git commit -m 'ci"
+    abbr -a -- gch "git commit -m 'chore"
+    abbr -a -- gcv "git commit -m 'revert"
+
     abbr -a -- gco 'git checkout -b'
     abbr -a -- gph 'git push'
     abbr -a -- gpl 'git pull'
