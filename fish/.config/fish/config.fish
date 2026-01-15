@@ -102,5 +102,6 @@ alias c='opencode'
 alias kssh="kitten ssh"
 
 export FZF_DEFAULT_OPTS="--layout=reverse"
+export MANPAGER="nvim +Man!"
 
 starship init fish | source
