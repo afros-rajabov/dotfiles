@@ -12,6 +12,7 @@ if status is-interactive
     abbr -a -- gc 'git commit -m'
     abbr -a -- gcf "git commit -m 'feat"
     abbr -a -- gcx "git commit -m 'fix"
+    abbr -a -- gchx "git commit -m 'hotfix"
     abbr -a -- gcd "git commit -m 'docs"
     abbr -a -- gcs "git commit -m 'style"
     abbr -a -- gcr "git commit -m 'refactor"
@@ -22,7 +23,22 @@ if status is-interactive
     abbr -a -- gch "git commit -m 'chore"
     abbr -a -- gcv "git commit -m 'revert"
 
-    abbr -a -- gco 'git checkout -b'
+    # branching
+    abbr -a -- gb 'git checkout -b'
+    abbr -a -- gbf "git checkout -b feat/"
+    abbr -a -- gbx "git checkout -b fix/"
+    abbr -a -- gbhx "git checkout -b hotfix/"
+    abbr -a -- gbd "git checkout -b docs/"
+    abbr -a -- gbs "git checkout -b style/"
+    abbr -a -- gbr "git checkout -b refactor/"
+    abbr -a -- gbp "git checkout -b perf/"
+    abbr -a -- gbt "git checkout -b test/"
+    abbr -a -- gbb "git checkout -b build/"
+    abbr -a -- gbc "git checkout -b ci/"
+    abbr -a -- gbh "git checkout -b chore/"
+    abbr -a -- gbv "git checkout -b revert/"
+
+    # syncing
     abbr -a -- gph 'git push'
     abbr -a -- gpl 'git pull'
     abbr -a -- gfp 'git fetch -p'
