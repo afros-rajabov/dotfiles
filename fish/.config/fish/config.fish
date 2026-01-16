@@ -56,8 +56,8 @@ if status is-interactive
     abbr -a -- pui 'pip uninstall'
     abbr -a -- pfr 'pip freeze > requirements.txt'
     abbr -a -- pr 'python run.py'
-    abbr -a -- savd 'source ./.venv/bin/activate
-    abbr -a -- sav 'source ./venv/bin/activate
+    abbr -a -- savd 'source ./.venv/bin/activate'
+    abbr -a -- sav 'source ./venv/bin/activate'
 
     #Docker
     abbr -a -- dstart 'bash start_all.sh'
