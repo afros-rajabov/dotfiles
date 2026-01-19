@@ -149,7 +149,7 @@ format = '[[($all_status$ahead_behind )](fg:base bg:green)]($style)'
 [nodejs]
 symbol = ""
 style = "bg:green"
-format = '[[ $symbol( $version) ](fg:base bg:teal)]($style)'
+format = '[[ $symbol( $version) ](fg:base bg:green)]($style)'
 
 [c]
 symbol = " "
@@ -164,12 +164,12 @@ format = '[[ $symbol( $version) ](fg:base bg:teal)]($style)'
 [golang]
 symbol = ""
 style = "bg:green"
-format = '[[ $symbol( $version) ](fg:base bg:teal)]($style)'
+format = '[[ $symbol( $version) ](fg:base bg:green)]($style)'
 
 [php]
 symbol = ""
 style = "bg:green"
-format = '[[ $symbol( $version) ](fg:base bg:teal)]($style)'
+format = '[[ $symbol( $version) ](fg:base bg:green)]($style)'
 
 [java]
 symbol = " "
