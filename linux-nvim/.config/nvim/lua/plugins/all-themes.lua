@@ -96,6 +96,14 @@ return {
     },
     priority = 10000
   },
+  {
+    "serhez/teide.nvim",
+    lazy = false,
+    priority = 1000,
+    opts = {
+      -- theme = "teide-darker"
+    },
+  }
   -- {
   --   "olimorris/onedarkpro.nvim",
   --   lazy = true,
