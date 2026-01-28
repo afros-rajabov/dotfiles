@@ -6,7 +6,7 @@
   "height": 26,
   "modules-left": [
     "custom/omarchy",
-    "clock",
+    // "clock",
     "custom/update",
     "custom/voxtype",
     "custom/screenrecording-indicator"
