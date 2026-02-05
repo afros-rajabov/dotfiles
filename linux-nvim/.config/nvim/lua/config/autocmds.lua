@@ -9,7 +9,15 @@
 
 -- Disable autoformat for python files
 vim.api.nvim_create_autocmd({ "FileType" }, {
-  pattern = { "python", "lua", "toml", "sql", "json", "jsonc" },
+  pattern = {
+    "python",
+    "lua",
+    "toml",
+    "sql",
+    "json",
+    "jsonc",
+    "c",
+  },
   callback = function()
     vim.b.autoformat = false
   end,
