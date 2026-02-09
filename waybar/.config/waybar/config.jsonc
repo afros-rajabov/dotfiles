@@ -15,6 +15,7 @@
     "hyprland/workspaces"
   ],
   "modules-right": [
+    "clock",
     "group/tray-expander",
     "bluetooth",
     "network",
@@ -73,7 +74,7 @@
   },
   "clock": {
     "format": "{:L%A %H:%M}",
-    "format-alt": "{:L%d %B W%V %Y}",
+    // "format-alt": "{:L%d %B W%V %Y}",
     "tooltip": false,
     "on-click-right": "omarchy-launch-floating-terminal-with-presentation omarchy-tz-select"
   },
