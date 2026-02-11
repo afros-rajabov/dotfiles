@@ -17,6 +17,7 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
     "json",
     "jsonc",
     "c",
+    "dockerfile",
   },
   callback = function()
     vim.b.autoformat = false
