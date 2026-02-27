@@ -2,7 +2,9 @@
   "include": [
     "src",
     "tests",
-    "app"
+    "app",
+    "run.py",
+    "main.py"
   ],
   "exclude": [
     ".venv",
