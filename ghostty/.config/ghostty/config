@@ -36,3 +36,6 @@ mouse-scroll-multiplier = 0.95
 
 font-size = 12
 gtk-titlebar = false
+
+# Fix general slowness on hyprland (https://github.com/ghostty-org/ghostty/discussions/3224)
+async-backend = epoll
