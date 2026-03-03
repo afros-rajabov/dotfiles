@@ -59,6 +59,9 @@ if status is-interactive
     abbr -a -- savd 'source ./.venv/bin/activate'
     abbr -a -- sav 'source ./venv/bin/activate'
 
+    # GO
+    abbr -a -- gr 'go run .'
+
     #Docker
     abbr -a -- dstart 'bash start_all.sh'
     abbr -a -- dstop 'bash stop_all.sh'
