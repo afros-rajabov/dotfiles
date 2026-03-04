@@ -19,7 +19,9 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
     "c",
     "dockerfile",
     "yaml",
-    "go"
+    "go",
+    "rs",
+    "rust",
   },
   callback = function()
     vim.b.autoformat = false
