@@ -13,7 +13,7 @@ return {
       provider = _99.Providers.CursorAgentProvider,  -- default: OpenCodeProvider
       logger = {
         level = _99.DEBUG,
-        path = "/tmp/" .. basename .. ".99.debug",
+        path = ".tmp/" .. basename .. ".99.debug",
         print_on_error = true,
       },
       -- When setting this to something that is not inside the CWD tools
@@ -21,7 +21,7 @@ return {
       -- and generation will fail refer to tool documentation to resolve
       -- https://opencode.ai/docs/permissions/#external-directories
       -- https://code.claude.com/docs/en/permissions#read-and-edit
-      tmp_dir = "~/.99/tmp",
+      tmp_dir = ".tmp",
 
       --- Completions: #rules and @files in the prompt buffer
       completion = {
