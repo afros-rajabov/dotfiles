@@ -12,7 +12,7 @@ return {
 
       -- Window settings
       window = {
-        width = 65, -- Width of the floating window
+        width = 50, -- Width of the floating window
         height = 50, -- Height of the floating window
         border = "rounded", -- Border style: 'single', 'double', 'rounded', 'solid'
         zindex = 50, -- Base z-index for floating windows (uses zindex to zindex+5)
