@@ -50,6 +50,8 @@ return {
           hidden = true,
           exclude = {
             ".git",
+            ".cursor",
+            ".pytest_cache",
             ".venv",
             "venv",
             ".idea",
