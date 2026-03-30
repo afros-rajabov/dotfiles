@@ -39,7 +39,7 @@ return {
           },
         },
         in_progress = {
-          icon = "󱉺",
+          icon = "󰜵",
           format = {
             "icon",
             "text",
